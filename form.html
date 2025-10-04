@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Modern Login & Registration</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #1f4037, #2b794b); /* Soft modern gradient */
+    }
+    .container {
+  width: 700px; 
+  /* Wider login box */
+  height: 700px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  padding: 10px 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  color: #fff;
+  transition: 0.3s;
+}
+
+    .container h2 {
+      text-align: center;
+      margin-bottom: 45px;
+      font-size: 24px;
+    }
+
+    .input-group {
+      margin-bottom: 18px;
+    }
+
+    .input-group label {
+      font-size: 14px;
+      margin-bottom: 5px;
+      display: block;
+      color: #e0e0e0;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px 12px;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .input-group input::placeholder {
+      color: #ddd;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      background: #00c9a7;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #00b396;
+    }
+
+    .toggle {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .toggle a {
+      color: #00ffe0;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .form {
+      display: none;
+    }
+
+    .form.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div id="loginForm" class="form active">
+      <h1>Login</h1>
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" placeholder="Enter your email" />
+      </div>
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" placeholder="Enter your password" />
+      </div>
+      <button class="btn">Login</button>
+      <div class="toggle">
+        Don't have an account? <a onclick="toggleForm('register')">Register</a>
+      </div>
+    </div>
+
+    <div id="registerForm" class="form">
+      <h2>Register</h2>
+      <div class="input-group">
+        <label>Full Name</label>
+        <input type="text" placeholder="Enter your full name" />
+      </div>
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" placeholder="Enter your email" />
+      </div>
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" placeholder="Create a password" />
+      </div>
+      <div class="input-group">
+        <label>Confirm Password</label>
+        <input type="password" placeholder="Confirm your password" />
+      </div>
+      <button class="btn">Register</button>
+      <div class="toggle">
+        Already have an account? <a onclick="toggleForm('login')">Login</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleForm(form) {
+      const loginForm = document.getElementById('loginForm');
+      const registerForm = document.getElementById('registerForm');
+
+      if (form === 'register') {
+        loginForm.classList.remove('active');
+        registerForm.classList.add('active');
+      } else {
+        registerForm.classList.remove('active');
+        loginForm.classList.add('active');
+      }
+    }
+  </script>
+
+</body>
+</html>

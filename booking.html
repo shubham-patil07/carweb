@@ -1,0 +1,158 @@
+<!-- booking html-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Booking - Shiv Motors</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f9f9f9;
+        color: #111;
+        margin: 20px;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .summary,
+      .form-box {
+        background: #fff;
+        padding: 20px;
+        border-radius: 12px;
+        margin: 20px auto;
+        max-width: 600px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      li {
+        margin: 10px 0;
+      }
+      label {
+        display: block;
+        margin: 10px 0 5px;
+        font-weight: bold;
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+      }
+      button {
+        background: #007bff;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 15px;
+      }
+      button:hover {
+        background: #0056b3;
+      }
+      .whatsapp-btn {
+        background: #25d366;
+        margin-left: 10px;
+      }
+      .whatsapp-btn:hover {
+        background: #1ebe57;
+      }
+      .showroom {
+        text-align: center;
+        margin-top: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Booking Confirmation</h1>
+
+    <div class="summary">
+      <h2>Your Selected Cars</h2>
+      <ul id="booking-list"></ul>
+      <h3 id="booking-total">Total: ₹0</h3>
+    </div>
+
+    <div class="form-box">
+      <h2>Book a Visit to Our Showroom</h2>
+      <form onsubmit="submitBooking(event)">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" required />
+
+        <label for="phone">Phone Number</label>
+        <input type="text" id="phone" required />
+
+        <label for="email">Email</label>
+        <input type="email" id="email" required />
+
+        <label for="date">Preferred Visit Date</label>
+        <input type="date" id="date" required />
+
+        <label for="message">Message (Optional)</label>
+        <textarea id="message"></textarea>
+
+        <button type="submit">Confirm Booking</button>
+        <button type="button" class="whatsapp-btn" onclick="sendWhatsApp()">
+          Chat on WhatsApp
+        </button>
+      </form>
+    </div>
+
+    <div class="showroom">
+      <h2>Visit Our Showroom</h2>
+      <p>Shiv Motors, MG Road, Pune, Maharashtra</p>
+      <p>
+        <a href="https://www.google.com/maps" target="_blank"
+          >📍 View on Google Maps</a
+        >
+      </p>
+    </div>
+
+    <script>
+      const collection = JSON.parse(localStorage.getItem("collection")) || [];
+      const total = localStorage.getItem("total") || 0;
+
+      const list = document.getElementById("booking-list");
+      const totalBox = document.getElementById("booking-total");
+
+      collection.forEach((car) => {
+        const item = document.createElement("li");
+        item.textContent = `${car.name} – ₹${car.price.toLocaleString()}`;
+        list.appendChild(item);
+      });
+      totalBox.innerText = `Total: ₹${Number(total).toLocaleString()}`;
+
+      function submitBooking(e) {
+        e.preventDefault();
+        alert("✅ Booking Confirmed! Our team will contact you soon.");
+        localStorage.clear();
+        window.location.href = "index.html";
+      }
+
+      function sendWhatsApp() {
+        let name = document.getElementById("name").value;
+        let phone = document.getElementById("phone").value;
+        let date = document.getElementById("date").value;
+
+        let cars = collection
+          .map((c) => `${c.name} (₹${c.price.toLocaleString()})`)
+          .join(", ");
+        let message = `Hello, I am ${name}. I am interested in: ${cars}. Total Price: ₹${Number(
+          total
+        ).toLocaleString()}. Preferred visit date: ${date}. Contact: ${phone}`;
+
+        // Replace with your WhatsApp number
+        let whatsappNumber = "919876543215558850";
+        let url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+          message
+        )}`;
+        window.open(url, "_blank");
+      }
+    </script>
+  </body>
+</html>

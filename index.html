@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shiv Motors</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background: #f9f9f9;
+        color: black;
+      }
+
+      /* HEADER */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background-color: #111;
+        color: white;
+        padding: 15px;
+        text-align: center;
+      }
+      .subtitle {
+        font-size: 14px;
+        color: #ccc;
+        margin-top: 5px;
+        letter-spacing: 1px;
+      }
+      nav a {
+        color: white;
+        margin: 0 12px;
+        text-decoration: none;
+        font-size: 14px;
+      }
+      nav a:hover {
+        color: orange;
+        transition: 0.3s;
+      }
+
+      /* HERO SECTION */
+      .hero {
+        text-align: center;
+        color: white;
+        background: url("https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1600&q=80")
+          no-repeat center center/cover;
+        height: 50vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+      .hero::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+      }
+      .hero h2,
+      .hero p {
+        position: relative;
+        z-index: 1;
+      }
+      .hero h2 {
+        font-size: 36px;
+        margin-bottom: 10px;
+      }
+      .hero p {
+        font-size: 18px;
+        letter-spacing: 2px;
+      }
+
+      /* SEARCH BAR */
+      #search-bar {
+        width: 60%;
+        padding: 10px;
+        margin: 20px auto;
+        display: block;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+      }
+      .car-container {
+        display: flex;
+        flex-wrap: nowrap; /* prevents wrapping */
+        gap: 20px; /* space between cards */
+        overflow-x: auto; /* enables horizontal scroll if needed */
+        padding: 20px;
+      }
+
+      .car-card {
+        flex: 0 0 auto; /* keeps card size fixed */
+        width: 250px; /* adjust card width */
+      }
+
+      /* CARS */
+      .car-gallery {
+        padding: 40px 20px;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        margin: 20px;
+      }
+      .car-card {
+        display: inline-block;
+        width: 300px;
+        margin: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-radius: 12px;
+        overflow: hidden;
+        background-color: #fff;
+        padding-bottom: 15px;
+        transition: transform 0.3s;
+      }
+      .car-card:hover {
+        transform: translateY(-5px);
+      }
+      .car-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+      .car-card h3 {
+        padding: 10px;
+        text-align: center;
+        color: black;
+      }
+      .car-card p {
+        font-weight: bold;
+        color: #333;
+      }
+      .add-btn {
+        background-color: #007bff;
+        color: white;
+        padding: 8px 15px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        margin-top: 10px;
+      }
+      .add-btn:hover {
+        background-color: #0056b3;
+      }
+
+      /* COLLECTION BOX */
+      .your-collection {
+        background: #fff;
+        padding: 30px;
+        text-align: center;
+        margin: 20px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+      .collection-box ul {
+        list-style: none;
+        padding: 0;
+        margin: 15px 0;
+      }
+      .collection-box li {
+        margin: 10px 0;
+        font-size: 16px;
+      }
+      .remove-btn {
+        margin-left: 10px;
+        background-color: #ff4d4d;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+      .remove-btn:hover {
+        background-color: #cc0000;
+      }
+
+      /* FOOTER */
+      footer {
+        background-color: #111;
+        color: white;
+        text-align: center;
+        padding: 15px;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1><strong>SHIV Motors</strong></h1>
+      <p class="subtitle">Buy | Sale | Second Hand Car Showroom</p>
+      <nav>
+        <a href="#">Home</a>
+        <a href="#">Cars</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h2>Explore Your Dream Car</h2>
+      <p>Luxury | Speed | Comfort</p>
+    </section>
+
+    <!-- SEARCH BAR -->
+    <input type="text" id="search-bar" placeholder="Search cars..." />
+
+    <!-- CARS -->
+    <section class="car-gallery" id="car-gallery">
+      <h2>Our Collection</h2>
+
+      <!-- Repeat for other cars -->
+
+      <div class="car-card">
+        <img
+          src="https://th.bing.com/th/id/OIP.Ht6LLbn_mZbwmDRO_2M1dgHaE8?w=246&h=180"
+          alt="Fortuner car"
+        />
+        <h3>Fortuner Gen 2</h3>
+        <p>Price: ₹48,00,000</p>
+        <button
+          class="add-btn"
+          onclick="addToCollection('Fortuner Gen 2', 2800000)"
+        >
+          Add to Collection
+        </button>
+      </div>
+
+      <div class="car-card">
+        <img
+          src="https://www.evoindia.com/h-upload/2025/06/20/462335-015a3356.webp"
+          alt="Hyryder Car"
+        />
+        <h3>Hyryder</h3>
+        <p>Price: ₹20,10,000</p>
+        <button class="add-btn" onclick="addToCollection('Hyryder', 2010000)">
+          Add to Collection
+        </button>
+      </div>
+
+      <div class="car-card">
+        <img
+          src="https://th.bing.com/th/id/OIP.uNLVbV6lgU2R-_Q2amcUSwHaEK?w=315&h=180"
+          alt="HiluX Car"
+        />
+        <h3>HiluX</h3>
+        <div class="badge">Limited Stock</div>
+        <p>Price: ₹51,50,000</p>
+        <button class="add-btn" onclick="addToCollection('HiluX', 5150000)">
+          Add to Collection
+        </button>
+      </div>
+
+      <div class="car-card">
+        <img
+          src="https://tse4.mm.bing.net/th/id/OIP.mnOi-rgHVVrWx5FtuLpN4QHaE8?r=0&cb=thfc1&rs=1&pid=ImgDetMain&o=7&rm=3"
+          alt="Honda City"
+        />
+        <h3>Honda City</h3>
+        <p>Price: ₹13,00,000</p>
+        <button
+          class="add-btn"
+          onclick="addToCollection('Honda City', 1300000)"
+        >
+          Add to Collection
+        </button>
+      </div>
+
+      <div class="car-card">
+        <img
+          src="https://th.bing.com/th/id/R.1c782c668975d0fe63a0c78d8a09c578?rik=DL%2bWONKGC4kE3g&riu=http%3a%2f%2fcdni.autocarindia.com%2fExtraImages%2f20160805100902_aniv1.jpg&ehk=h9JesYuaXDPbD%2fczIm5hwg1DzZt7m5CYTuvVlkz7tjo%3d&risl=&pid=ImgRaw&r=0"
+          alt="Hyundai Creta"
+        />
+        <h3>Hyundai Creta</h3>
+        <p>Price: ₹16,50,000</p>
+        <button
+          class="add-btn"
+          onclick="addToCollection('Hyundai Creta', 1650000)"
+        >
+          Add to Collection
+        </button>
+      </div>
+
+      <div class="car-card">
+        <img
+          src="https://images.carexpert.com.au/resize/3000/-/app/uploads/2022/11/Kia-Seltos-GT-Line_HERO-16x9-1.jpg"
+          alt="Kia Seltos"
+        />
+        <h3>Kia Seltos</h3>
+        <p>Price: ₹18,20,000</p>
+        <button
+          class="add-btn"
+          onclick="addToCollection('Kia Seltos', 1820000)"
+        >
+          Add to Collection
+        </button>
+      </div>
+      <!-- 10 Extra Cars (Non-EV) -->
+        <div class="car-card">
+          <img
+            src="https://cdn1.acedms.com/uploads/category/Mahindra/20220820094458000000-6947115746592710657.jpg"
+            alt="Scorpio s11 classic"
+          />
+          <h3>Scorpio s11 classic</h3>
+          <p>Luxury SUV with powerful engine</p>
+          <p>Price: ₹25,00,000</p>
+          <button
+            class="add-btn"
+            onclick="addToCollection('Scorpio s11 classic', 2500000)"
+          >
+            Add to Collection
+          </button>
+        </div>
+
+        <div class="car-card">
+          <img
+            src="https://wallpaperaccess.com/full/8665496.jpg"
+            alt="Xuv 700"
+          />
+          <h3>XUV 700</h3>
+          <p>Premium Suv with comfort and style</p>
+          <p>Price: ₹27,00,000</p>
+          <button class="add-btn" onclick="addToCollection('XUV 700', 2700000)">
+            Add to Collection
+          </button>
+        </div>
+
+        <div class="car-card">
+          <img
+            src="https://th.bing.com/th/id/OIP.s2miidArIoAXX4WJG_uVvgHaEo?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3"
+            alt="Xuv 500"
+          />
+          <h3>XUV 500</h3>
+          <p>Premium Suv with comfort and style</p>
+          <p>Price: ₹20,00,000</p>
+          <button class="add-btn" onclick="addToCollection('XUV 500', 2000000)">
+            Add to Collection
+          </button>
+        </div>
+
+        <div class="car-card">
+          <img
+            src="https://stat.overdrive.in/wp-content/odgallery/2020/03/56249_Hyundai_verna_015.jpg"
+            alt="Hyundai Verna"
+          />
+          <h3>Hyundai Verna</h3>
+          <p>Premium sedan with comfort and style</p>
+          <p>Price: ₹17,00,000</p>
+          <button
+            class="add-btn"
+            onclick="addToCollection('Hyundai Verna', 1700000)"
+          >
+            Add to Collection
+          </button>
+        </div>
+
+        <div class="car-card">
+          <img
+            src="https://i.pinimg.com/originals/d1/aa/08/d1aa08546f1f9bbeb34896d0293e711d.jpg"
+            alt="Ertiga"
+          />
+          <h3>Ertiga</h3>
+          <p>Luxury with comfort</p>
+          <p>Price: ₹15,00,000</p>
+          <button class="add-btn" onclick="addToCollection('Ertiga', 1500000)">
+            Add to Collection
+          </button>
+        </div>
+
+        <div class="car-card">
+          <img
+            src="https://cdni.autocarindia.com/ExtraImages/20220225071928_Maruti%20Suzuki%20WagonR.jpg"
+            alt="Wagonr"
+          />
+          <h3>Wagonr</h3>
+          <p>Most value for money car</p>
+          <p>Price: 6,50,000</p>
+          <button class="add-btn" onclick="addToCollection('Wagonr', 650000)">
+            Add to Collection
+          </button>
+        </div>
+
+        <div class="car-card">
+          <img
+            src="https://img.indianautosblog.com/2015/02/2015-Maruti-Swift-Dzire-front-three-quarters-official-pic.jpg"
+            alt="Swift Dzire"
+          />
+          <h3>Swift Dzire</h3>
+          <p>Most value for money car</p>
+          <p>Price: ₹10,00,000</p>
+          <button
+            class="add-btn"
+            onclick="addToCollection('Swift Dzire', 1000000)"
+          >
+            Add to Collection
+          </button>
+        </div>
+
+        <div class="car-card">
+          <img
+            src="https://www.rushlane.com/wp-content/uploads/2023/03/toyota-innova-crysta-top-variant.jpg"
+            alt="Toyota crysta"
+          />
+          <h3>Toyota crysta</h3>
+          <p>Popular SUV with strong road presence</p>
+          <p>Price: ₹35,00,000</p>
+          <button
+            class="add-btn"
+            onclick="addToCollection('Toyota Crysta', 3500000)"
+          >
+            Add to Collection
+          </button>
+        </div>
+
+        <div class="car-card">
+          <img
+            src="https://tse3.mm.bing.net/th/id/OIP.dqbHcPiSYx4J_bqgnVJOCwHaE7?rs=1&pid=ImgDetMain&o=7&rm=3"
+            alt="Toyota Innova"
+          />
+          <h3>Toyota Innova</h3>
+          <p>most popular SUV/p></p>
+          <p>Price: ₹17,50,000</p>
+          <button
+            class="add-btn"
+            onclick="addToCollection('Toyota Innova', 1750000)"
+          >
+            Add to Collection
+          </button>
+        </div>
+
+        <div class="car-card">
+          <img
+            src="https://motoroctane.com/wp-content/uploads/2020/09/Black-devil-1.jpg"
+            alt="Lord Omni"
+          />
+          <h3>Lord Omni</h3>
+          <p>The LEGEND the MYTH</p>
+          <p>Price: ₹4,00,000</p>
+          <button
+            class="add-btn"
+            onclick="addToCollection('Lord Omni', 400000)"
+          >
+            Add to Collection
+          </button>
+        </div>
+    </section>
+
+    <!-- COLLECTION -->
+    <section class="your-collection">
+      <h2>Your Collection</h2>
+      <div class="collection-box">
+        <ul id="collection-list"></ul>
+        <div id="total-price">Total: ₹0</div>
+        <button class="add-btn" onclick="proceedToBooking()">
+          Proceed to Booking
+        </button>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Shiv Motors. All rights reserved.</p>
+    </footer>
+
+    <script>
+      let collection = [];
+      let total = 0;
+
+      function addToCollection(carName, price) {
+        collection.push({ name: carName, price });
+        total += price;
+        updateCollection();
+      }
+
+      function removeFromCollection(index) {
+        total -= collection[index].price;
+        collection.splice(index, 1);
+        updateCollection();
+      }
+
+      function updateCollection() {
+        const list = document.getElementById("collection-list");
+        const totalPrice = document.getElementById("total-price");
+        list.innerHTML = "";
+        collection.forEach((car, index) => {
+          const item = document.createElement("li");
+          item.innerHTML = `${car.name} – ₹${car.price.toLocaleString()} 
+          <button class="remove-btn" onclick="removeFromCollection(${index})">Remove</button>`;
+          list.appendChild(item);
+        });
+        totalPrice.innerText = `Total: ₹${total.toLocaleString()}`;
+      }
+
+      function proceedToBooking() {
+        if (collection.length === 0) {
+          alert("Please add a car to your collection before booking!");
+          return;
+        }
+        localStorage.setItem("collection", JSON.stringify(collection));
+        localStorage.setItem("total", total);
+        window.location.href = "booking.html";
+      }
+
+      // SEARCH
+      document
+        .getElementById("search-bar")
+        .addEventListener("keyup", function () {
+          let filter = this.value.toLowerCase();
+          let cars = document.querySelectorAll(".car-card");
+          cars.forEach((card) => {
+            let name = card.querySelector("h3").innerText.toLowerCase();
+            card.style.display = name.includes(filter)
+              ? "inline-block"
+              : "none";
+          });
+        });
+    </script>
+  </body>
+</html>
+
+

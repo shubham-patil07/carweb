@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MyShop - Shopping Website</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Header */
+    header {
+      background: #222;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 20px;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ff9800;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                  url("https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1500&q=80") no-repeat center/cover;
+      color: #fff;
+      text-align: center;
+      padding: 100px 20px;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+    }
+
+    /* Products */
+    .products {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .products h2 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-card img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .product-card h3 {
+      margin: 15px 0 10px;
+      font-size: 1.2rem;
+    }
+
+    .product-card p {
+      font-size: 1rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #ff9800;
+    }
+
+    .product-card button {
+      background: #ff9800;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+    }
+
+    .product-card button:hover {
+      background: #e68900;
+    }
+
+    /* Cart Section */
+    #cart {
+      padding: 40px;
+      text-align: center;
+      background: #fff;
+      margin: 40px 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    #cart ul {
+      list-style: none;
+      margin: 20px 0;
+      padding: 0;
+    }
+
+    #cart ul li {
+      margin: 10px 0;
+      font-size: 1rem;
+    }
+
+    #cart button {
+      background: red;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    /* Footer */
+    footer {
+      background: #222;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- Header -->
+  <header>
+    <div class="logo">🛒 SHIV Store</div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#products">Products</a>
+      <a href="#cart">Cart (<span id="cart-count">0</span>)</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header> 
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <h1>Welcome to SHIV Store</h1>
+    <p>Best deals on your favorite products!</p>
+  </section>
+
+  <!-- Products -->
+  <section class="products" id="products">
+    <h2>Featured Products</h2>
+    <div class="product-grid">
+
+      <div class="product-card">
+        <img src="https://www.tennisnuts.com/images/product/full/30F20336-4001_A.jpg" alt="Stylish Shoes">
+        <h3>Stylish Shoes</h3>
+        <p>₹999</p>
+        <button onclick="addToCart('Stylish Shoes', 999)">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="https://thf.bing.com/th/id/OIP.0jXCixd4B8VHI7CKLs6UIAHaHa?r=0&o=7&cb=thfc1rm=3&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Analog Watch">
+        <h3>Analog Watch</h3>
+        <p>₹1999</p>
+        <button onclick="addToCart('Analog Watch', 1999)">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="https://m.media-amazon.com/images/I/81brSCgvSQL._AC_SL1500_.jpg" alt="Backpack">
+        <h3>Backpack</h3>
+        <p>₹799</p>
+        <button onclick="addToCart('Backpack', 799)">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="https://media.musiciansfriend.com/is/image/MMGS7/High-Quality-Professional-Headphones-with-Built-in-Microphone/L72356000000000-00-1600x1600.jpg" alt="Headphones">
+        <h3>Headphones</h3>
+        <p>₹1499</p>
+        <button onclick="addToCart('Headphones', 1499)">Add to Cart</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Cart Section -->
+  <section id="cart">
+    <h2>Your Cart</h2>
+    <ul id="cart-items"></ul>
+    <p>Total: ₹<span id="cart-total">0</span></p>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <p>© 2025 MyShop. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    let cart = [];
+
+    function addToCart(productName, price) {
+      // Check if product already in cart
+      let item = cart.find(p => p.name === productName);
+      if (item) {
+        item.qty += 1; // increase quantity
+      } else {
+        cart.push({ name: productName, price: price, qty: 1 });
+      }
+      updateCart();
+    }
+
+    function updateCart() {
+      let cartCount = document.getElementById("cart-count");
+      let totalItems = cart.reduce((sum, p) => sum + p.qty, 0);
+      cartCount.textContent = totalItems;
+
+      // Update cart list
+      let cartItems = document.getElementById("cart-items");
+      let cartTotal = document.getElementById("cart-total");
+      cartItems.innerHTML = "";
+      let totalPrice = 0;
+
+      cart.forEach(item => {
+        let li = document.createElement("li");
+        li.innerHTML = `${item.name} (x${item.qty}) - ₹${item.price * item.qty} 
+          <button onclick="removeFromCart('${item.name}')">❌</button>`;
+        cartItems.appendChild(li);
+        totalPrice += item.price * item.qty;
+      });
+
+      cartTotal.textContent = totalPrice;
+    }
+
+    function removeFromCart(productName) {
+      cart = cart.filter(p => p.name !== productName);
+      updateCart();
+    }
+  </script>
+</body>
+</html>
