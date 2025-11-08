@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Shiv Motors</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:Arial,sans-serif;background:#f9f9f9;color:black;scroll-behavior:smooth;}
+header{position:sticky;top:0;z-index:1000;background:#111;color:white;padding:15px;text-align:center;}
+.subtitle{font-size:14px;color:#ccc;margin-top:5px;letter-spacing:1px;}
+nav{margin-top:8px;}
+nav a{color:white;margin:0 12px;text-decoration:none;font-size:14px;}
+nav a:hover{color:orange;transition:0.3s;}
+.hero{text-align:center;color:white;background:url('https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1600&q=80') no-repeat center/cover;height:50vh;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;}
+.hero::after{content:"";position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);}
+.hero h2,.hero p{position:relative;z-index:1;}
+.hero h2{font-size:36px;margin-bottom:10px;}
+.hero p{font-size:18px;letter-spacing:2px;}
+#search-bar,#price-filter{width:60%;padding:10px;margin:20px auto;display:block;border:1px solid #ccc;border-radius:8px;font-size:16px;}
+#max-price{text-align:center;font-weight:bold;}
+.car-gallery{padding:40px 20px;text-align:center;background:rgba(255,255,255,0.95);border-radius:20px;margin:20px;}
+.car-card{display:inline-block;width:300px;margin:20px;box-shadow:0 4px 12px rgba(0,0,0,0.15);border-radius:12px;overflow:hidden;background:#fff;padding-bottom:15px;transition:0.3s;}
+.car-card img{width:100%;height:200px;object-fit:cover;}
+.car-card h3{padding:10px;color:black;}
+.car-card p{font-weight:bold;color:#333;}
+.add-btn{background:#007bff;color:white;padding:8px 15px;border:none;border-radius:8px;cursor:pointer;font-size:14px;margin-top:10px;}
+.add-btn:hover{background:#0056b3;}
+.your-collection{background:#fff;padding:30px;text-align:center;margin:20px;border-radius:15px;box-shadow:0 0 10px rgba(0,0,0,0.2);}
+.collection-box ul{list-style:none;padding:0;margin:15px 0;}
+.collection-box li{margin:10px 0;font-size:16px;}
+.remove-btn{margin-left:10px;background:#ff4d4d;color:white;border:none;padding:5px 10px;cursor:pointer;border-radius:5px;font-size:14px;}
+.remove-btn:hover{background:#cc0000;}
+#scrollTopBtn{display:none;position:fixed;bottom:30px;right:30px;z-index:999;background:#007bff;color:white;border:none;padding:10px 15px;border-radius:50%;cursor:pointer;font-size:20px;box-shadow:0 4px 8px rgba(0,0,0,0.2);}
+#scrollTopBtn:hover{background:#0056b3;}
+footer{background:#111;color:white;text-align:center;padding:15px;margin-top:20px;}
+@media(max-width:768px){#search-bar,#price-filter{width:90%;}.car-card{width:90%;}}
+</style>
+</head>
+
+<body>
+<header>
+<h1><strong>SHIV Motors</strong></h1>
+<p class="subtitle">Buy | Sale | Second Hand Car Showroom</p>
+<nav>
+<a href="#">Home</a>
+<a href="#">Cars</a>
+<a href="#">About</a>
+<a href="#">Contact</a>
+</nav>
+</header>
+
+<section class="hero">
+<h2>Explore Your Dream Car</h2>
+<p>Luxury | Speed | Comfort</p>
+</section>
+
+<input type="text" id="search-bar" placeholder="Search cars..." />
+<input type="range" id="price-filter" min="100000" max="6000000" value="6000000" />
+<p id="max-price">Max Price: ₹6000000</p>
+
+<section class="car-gallery" id="car-gallery">
+<h2>Our Collection</h2>
+</section>
+
+<section class="your-collection">
+<h2>Your Collection</h2>
+<div class="collection-box">
+<ul id="collection-list"></ul>
+<div id="total-price">Total: ₹0</div>
+</div>
+</section>
+
+<footer><p>&copy; 2025 Shiv Motors. All rights reserved.</p></footer>
+
+<button id="scrollTopBtn" onclick="scrollToTop()">↑</button>
+
+<script>
+// CAR DATA
+const cars = [
+  {name:"Fortuner Gen 2",price:4800000,img:"https://th.bing.com/th/id/OIP.Ht6LLbn_mZbwmDRO_2M1dgHaE8?w=246&h=180"},
+  {name:"Hyryder",price:2010000,img:"https://www.evoindia.com/h-upload/2025/06/20/462335-015a3356.webp"},
+  {name:"Hilux",price:5150000,img:"https://th.bing.com/th/id/OIP.uNLVbV6lgU2R-_Q2amcUSwHaEK?w=315&h=180"},
+  {name:"Honda City",price:1300000,img:"https://tse4.mm.bing.net/th/id/OIP.mnOi-rgHVVrWx5FtuLpN4QHaE8"},
+  {name:"Hyundai Creta",price:1650000,img:"https://cdni.autocarindia.com/ExtraImages/20160805100902_aniv1.jpg"},
+  {name:"Kia Seltos",price:1820000,img:"https://images.carexpert.com.au/resize/3000/-/app/uploads/2022/11/Kia-Seltos-GT-Line_HERO-16x9-1.jpg"},
+  {name:"Scorpio s11 classic",price:2500000,img:"https://cdn1.acedms.com/uploads/category/Mahindra/20220820094458000000-6947115746592710657.jpg"},
+  {name:"XUV 700",price:2700000,img:"https://wallpaperaccess.com/full/8665496.jpg"},
+  {name:"XUV 500",price:2000000,img:"https://th.bing.com/th/id/OIP.s2miidArIoAXX4WJG_uVvgHaEo"},
+  {name:"Hyundai Verna",price:1700000,img:"https://stat.overdrive.in/wp-content/odgallery/2020/03/56249_Hyundai_verna_015.jpg"},
+  {name:"Ertiga",price:1500000,img:"https://i.pinimg.com/originals/d1/aa/08/d1aa08546f1f9bbeb34896d0293e711d.jpg"},
+  {name:"WagonR",price:650000,img:"https://cdni.autocarindia.com/ExtraImages/20220225071928_Maruti%20Suzuki%20WagonR.jpg"},
+  {name:"Swift Dzire",price:1000000,img:"https://img.indianautosblog.com/2015/02/2015-Maruti-Swift-Dzire-front-three-quarters-official-pic.jpg"},
+  {name:"Toyota Crysta",price:3500000,img:"https://www.rushlane.com/wp-content/uploads/2023/03/toyota-innova-crysta-top-variant.jpg"},
+  {name:"Toyota Innova",price:1750000,img:"https://tse3.mm.bing.net/th/id/OIP.dqbHcPiSYx4J_bqgnVJOCwHaE7"},
+  {name:"Lord Omni",price:400000,img:"https://motoroctane.com/wp-content/uploads/2020/09/Black-devil-1.jpg"}
+];
+
+const gallery = document.getElementById("car-gallery");
+
+// Render cars
+function showCars(list) {
+  gallery.innerHTML = "<h2>Our Collection</h2>";
+  list.forEach(car=>{
+    const div=document.createElement("div");
+    div.className="car-card";
+    div.innerHTML=`
+      <img src="${car.img}" alt="${car.name}">
+      <h3>${car.name}</h3>
+      <p>Price: ₹${car.price.toLocaleString()}</p>
+      <button class='add-btn' onclick='addToCollection("${car.name}",${car.price})'>Add to Collection</button>
+    `;
+    gallery.appendChild(div);
+  });
+}
+showCars(cars);
+
+// Search
+document.getElementById("search-bar").addEventListener("input",e=>{
+  const val=e.target.value.toLowerCase();
+  const filtered=cars.filter(c=>c.name.toLowerCase().includes(val));
+  showCars(filtered);
+});
+
+// Price Filter
+document.getElementById("price-filter").addEventListener("input",e=>{
+  const max=e.target.value;
+  document.getElementById("max-price").innerText="Max Price: ₹"+max;
+  const filtered=cars.filter(c=>c.price<=max);
+  showCars(filtered);
+});
+
+// Collection
+let collection=[];let total=0;
+function addToCollection(name,price){
+  collection.push({name,price});
+  total+=price;
+  updateCollection();
+}
+function removeFromCollection(i){
+  total-=collection[i].price;
+  collection.splice(i,1);
+  updateCollection();
+}
+function updateCollection(){
+  const list=document.getElementById("collection-list");
+  list.innerHTML="";
+  collection.forEach((car,i)=>{
+    const li=document.createElement("li");
+    li.innerHTML=`${car.name} – ₹${car.price.toLocaleString()} <button class='remove-btn' onclick='removeFromCollection(${i})'>Remove</button>`;
+    list.appendChild(li);
+  });
+  document.getElementById("total-price").innerText="Total: ₹"+total.toLocaleString();
+}
+
+// Scroll To Top
+const btn=document.getElementById("scrollTopBtn");
+window.onscroll=function(){btn.style.display=(document.documentElement.scrollTop>200)?"block":"none";}
+function scrollToTop(){window.scrollTo({top:0,behavior:"smooth"});}
+</script>
+</body>
+</html>
