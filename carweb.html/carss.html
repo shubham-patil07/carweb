@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cars - Shiv Motors</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+    }
+
+    header {
+      background: #111;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .container {
+      padding: 30px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .card h3 {
+      margin: 10px 0;
+    }
+
+    .card p {
+      color: #555;
+      font-size: 14px;
+    }
+
+    .card button {
+      margin-top: 10px;
+      padding: 8px 15px;
+      border: none;
+      border-radius: 6px;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+
+    .card button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1 id="page-title">Our Cars</h1>
+</header>
+
+<div class="container">
+  <h2 id="section-title"></h2>
+
+  <div class="card-grid">
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1549924231-f129b911e442" alt="">
+      <h3>Toyota Fortuner</h3>
+      <p>Diesel • 2022 • 45,000 KM</p>
+      <button>View Details</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1605559424843-9e4c1e90c93d" alt="">
+      <h3>Honda City</h3>
+      <p>Petrol • 2021 • 30,000 KM</p>
+      <button>View Details</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1590362891991-f776e747a588" alt="">
+      <h3>Hyundai Creta</h3>
+      <p>Petrol • 2023 • New</p>
+      <button>View Details</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const type = params.get("type");
+
+  const title = document.getElementById("section-title");
+
+  if (type === "buy") title.innerText = "Cars Available for Buying";
+  else if (type === "sell") title.innerText = "Sell Your Car to Shiv Motors";
+  else if (type === "used") title.innerText = "Second-Hand Cars";
+  else if (type === "rent") title.innerText = "Cars Available for Rent";
+  else title.innerText = "Our Car Collection";
+</script>
+
+</body>
+</html>
